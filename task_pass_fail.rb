@@ -13,9 +13,22 @@ grades=
     "Giovanni" => 60
 }
 
-puts "Pass candidates list is: "
-pass = grades.select { |key, value| value > 60 } 
-puts pass
-puts "Failed candidates list is: "
-fail = grades.select { |key, value| value <= 60 }
-puts fail
+# puts "Pass candidates list is: "
+# pass = grades.select { |key, value| value > 60 } 
+# puts pass
+# puts "Failed candidates list is: "
+# fail = grades.select { |key, value| value <= 60 }
+# puts fail
+
+# a = {"pass" => [], "fail" => []}
+# grades.each do |name, grade|
+#   if grade > 60
+#    a["pass"] << [name, grade]
+#   else
+#    a["fail"] << [name, grade]
+#   end
+# end
+# puts a
+
+PASS_SCORE = 60
+puts grades.group_by {|_, v| v > PASS_SCORE ? 'pass' : 'fail'}

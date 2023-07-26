@@ -1,45 +1,11 @@
-class Task1
-
-  def method_addition(a, b)
-    if a.integer? && b.integer?
-      result = a + b
-    else
-      puts "User input should be integers only"
-    end
-  end
-  
-  def method_subtraction(a, b)
-    if a.integer? && b.integer?
-      result = a - b
-    else
-      puts "User input should be integers only"
-    end
-  end
-  
-  def method_multiplication(a, b)
-    if a.integer? && b.integer?
-      result = a * b
-    else
-      puts "User input should be integers only"
-    end
-  end
-  
-  def method_division(a, b)
-    if a.integer? && b.integer?
-      result = a / b
-    else
-      puts "User input should be integers only"
-    end
-  end
-  
+def check_integer?(a, b)
+  a.is_a?(Integer) && b.is_a?(Integer)
 end
-  
+
 puts "Welcome to the Mathematical Operations Program!"
-  
-obj = Task1.new
-  
+
 while true
-  
+
   puts "enter the first number:"
   a = gets.chomp.to_i
   
@@ -52,28 +18,45 @@ while true
   case op
   
   when '+'
-
-    result = obj.method_addition(a, b)
-    puts "Result: #{result}"
-  
-  when '-'
-  
-      result = obj.method_subtraction(a, b)
+    
+    if check_integer?(a, b)
+      result = a + b
       puts "Result: #{result}"
+    else
+      puts "User Input should be only Integers."
+    end
+
+  when '-'
+
+    if check_integer?(a, b)
+      result = a - b
+      puts "Result: #{result}"
+    else
+      puts "User Input should be only Integers."
+    end
   
   when '*'
-  
-      result = obj.method_multiplication(a, b)
+    
+    if check_integer?(a, b)
+      result = a * b
       puts "Result: #{result}"
+    else
+      puts "User Input should be only Integers."
+    end
       
   when '/'
-      
-      if( b == 0 )
-        puts "b should not be zero"
-      else
-        result = obj.method_division(a ,b)
+    
+    if( b == 0 )
+      puts "Second number should not be zero."
+    else
+      if check_integer?(a, b)
+        result = a / b
         puts "Result: #{result}"
+      else
+        puts "User Input should be only Integers."
       end
+    end
+  
   else 
     puts "Choose proper operator among(+,-,*,/)"
   end
@@ -82,4 +65,5 @@ while true
   continue = gets.chomp
   break if continue == "N"
 end
+
 puts "Exiting the program. Goodbye!"

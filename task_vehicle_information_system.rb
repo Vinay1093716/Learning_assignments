@@ -2,12 +2,16 @@ vehicle_objects = []
 
 module VehicleCategory
 
-  VEHICLE_CATEGORIES = { "cars" => ["Sedan", "SUV", "CUV", "Hatch Back"], "motorcycles" => ["Bike", "Scooter"], "trucks" => ["lorry", "DCM"] }
+  VEHICLE_CATEGORIES = { "Cars" => ["Sedan", "SUV", "CUV", "Hatch Back"], "motorcycles" => ["Bike", "Scooter"], "trucks" => ["lorry", "DCM"] }
   
   def check_vehicle_input?(category, type)
     return false unless VEHICLE_CATEGORIES.keys.include?(category)
     
     VEHICLE_CATEGORIES[category].include?(type)
+  end
+
+  def check_valid_year?(year)
+    year.between?(1886, 2030)
   end
 
 end
@@ -19,13 +23,18 @@ class Vehicle
   attr_accessor :make, :model, :year, :category, :type
 
   def add_vehicle(vehicle_make, vehicle_model, vehicle_year, vehicle_category, vehicle_type)
-    if check_vehicle_input?(vehicle_category, vehicle_type)
+    if check_vehicle_input?(vehicle_category, vehicle_type) && check_valid_year?(vehicle_year)
       @make = vehicle_make
       @model = vehicle_model
       @year = vehicle_year
       @category = vehicle_category
       @type = vehicle_type
-      puts "Vehicle added successfully :#{@make},#{@model},#{@year},#{@category},#{@type}"
+      puts "Vehicle added successfully."
+      puts "Car Make: #{@make}"
+      puts "Car Model: #{@model}"
+      puts "Year: #{@year}"
+      puts "Vehicle Category: #{@category}"
+      puts "Vehicle Type: #{@type}"
     else
       puts "Invalid Input is provided, when creating vehicle, again give the input."
     end
@@ -65,7 +74,7 @@ class Vehicle
         puts "#{itr.model}"
         puts "#{itr.year}"
         puts "#{itr.category}"
-        puts  "#{itr.type}"
+        puts "#{itr.type}"
       else
         puts "No such vehicle is found"
       end
@@ -77,14 +86,15 @@ end
 while (true)
   puts "If you want to exit: press N or else press Y"
   i = gets.chomp
+
   if i == "N"
     puts "Exited from the Program."
     break
   else
-    puts "Enter 1 for adding vehicle:"
-    puts "Enter 2 for searching vehicle by model:"
-    puts "Enter 3 for displaying vehicles by category:"
-    puts "Enter 4 for displaying vehicle details:"
+    puts "Enter 1 for adding vehicle"
+    puts "Enter 2 for searching vehicle by model"
+    puts "Enter 3 for displaying vehicles by category"
+    puts "Enter 4 for displaying vehicle details"
     num = gets.chomp.to_i
     obj = Vehicle.new
     case num
@@ -94,7 +104,7 @@ while (true)
         puts "enter Vehicle model:"
         s2 = gets.chomp
         puts "enter manufacturing year:"
-        s3 = gets.chomp
+        s3 = gets.chomp.to_i
         puts "enter vehicle category:"
         s4 = gets.chomp
         puts "enter vehicle type:"
@@ -115,10 +125,10 @@ while (true)
         puts "enter the vehicle model:"
         model = gets.chomp
         puts "enter the year:"
-        year = gets.chomp
+        year = gets.chomp.to_i
         obj.display_vehicle_details(vehicle_objects,make,model,year)
       else
         puts "You entered wrong choice"
-      end
     end
   end
+end
